@@ -58,7 +58,7 @@ public class Convertation {
       return result;
     }
 
-    public List<Integer> convert(List<int[]> list) {
+    public List<Integer> convert(List<int[]> list) {      // метод для конвертации листа массивов в один лист
         List<Integer> result = new ArrayList<>();
         for (int[] tmp : list) {
             for (int i : tmp) {

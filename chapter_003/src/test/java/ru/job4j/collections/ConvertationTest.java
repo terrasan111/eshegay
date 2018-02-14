@@ -41,7 +41,7 @@ public class ConvertationTest {
         assertThat(tmp, is(expected));
     }
 
-  /*  @Test
+    @Test
     public void test3() {
         int[] a = {1, 2, 3};
         int[] b = {4, 5, 6, 7};
@@ -56,7 +56,7 @@ public class ConvertationTest {
          test = convertation.convert(Arrays.asList(a, b));
          assertThat(test, is(expect));
     }
-
+     /*
     @Test
     public void test4() {
         User user1 = new User("Jack", "New York", 11);
