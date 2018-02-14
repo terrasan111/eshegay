@@ -16,7 +16,7 @@ public class SortUser  {
        return tmp;
     }
 
-   /* public List<User2> sortNameLength(List<User2> list) {
+    public List<User2> sortNameLength(List<User2> list) {
 
         User2Comparator us = new User2Comparator();
         List<User2> tmp = new ArrayList<>();
@@ -36,5 +36,5 @@ public class SortUser  {
          Collections.sort(tmp, us2);
         return tmp;
     }
-*/
+
 }

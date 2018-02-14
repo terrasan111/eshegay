@@ -37,7 +37,7 @@ public class SortUserTest {
         assertThat(result, is(expect));
     }
 
-   /* @Test
+    @Test
     public void testNameLength() {
         User2 user1 = new User2("Ivan", 2);
         User2 user2 = new User2("Boris", 33);
@@ -79,7 +79,7 @@ public class SortUserTest {
         assertThat(result, is(expect));
 
 
-    }*/
+    }
 
 
 }
