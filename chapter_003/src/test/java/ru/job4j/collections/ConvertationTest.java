@@ -56,9 +56,9 @@ public class ConvertationTest {
          test = convertation.convert(Arrays.asList(a, b));
          assertThat(test, is(expect));
     }
-     /*
+
     @Test
-    public void test4() {
+    public void userConvert() {
         User user1 = new User("Jack", "New York", 11);
         User user2 = new User("John", "Mexico", 122);
         User user3 = new User("Stefan", "Mistic Falls", 13);
@@ -78,5 +78,5 @@ public class ConvertationTest {
         expect.put(33, user4);
         assertThat(result, is(expect));
     }
-*/
+
 }
