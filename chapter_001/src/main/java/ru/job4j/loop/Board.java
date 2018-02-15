@@ -16,7 +16,7 @@ public class Board {
                     screen.append("X");
                 }
             }
-            screen.append(ln);
+            screen.append("\r\n");    // добавил  сепаратор
         }
         System.out.println(screen.toString());
         return screen.toString();

@@ -14,7 +14,7 @@ public class BoardTest {
         Board board = new Board();
         String rsl = board.paint(3, 3);
         String ln = System.lineSeparator();
-        String except = "X X" +ln + " X " + ln + "X X" +ln;
+        String except = "X X" + ln + " X " + ln + "X X" + ln;  // добавил сепаратор
         assertThat(rsl, is(except));
 
 
@@ -25,7 +25,7 @@ public class BoardTest {
         Board board = new Board();
         String rsl = board.paint(5, 4);
         String ln = System.lineSeparator();
-        String except = "X X X" + ln + " X X " + ln + "X X X" +ln + " X X " + ln;
+        String except = "X X X" + ln + " X X " + ln + "X X X" + ln + " X X " + ln;  // добавил сепаратор
         assertThat(rsl, is(except));
 
 
