@@ -14,7 +14,8 @@ public class BoardTest {
         Board board = new Board();
         String rsl = board.paint(3, 3);
         String ln = System.lineSeparator();
-        assertThat(rsl, is(String.format("X X\r\n X \r\nX X\r\n", ln, ln, ln)));
+        String except = "X X" +ln + " X " + ln + "X X" +ln;
+        assertThat(rsl, is(except));
 
 
     }
@@ -24,7 +25,8 @@ public class BoardTest {
         Board board = new Board();
         String rsl = board.paint(5, 4);
         String ln = System.lineSeparator();
-        assertThat(rsl, is(String.format("X X X\r\n X X \r\nX X X\r\n X X \r\n", ln, ln, ln)));
+        String except = "X X X" + ln + " X X " + ln + "X X X" +ln + " X X " + ln;
+        assertThat(rsl, is(except));
 
 
     }
