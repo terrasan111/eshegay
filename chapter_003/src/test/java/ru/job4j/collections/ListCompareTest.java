@@ -39,5 +39,14 @@ public class ListCompareTest {
         assertThat(rst, is(1));
     }
 
+    @Test
+    public void whenListsEquals() {
+        ListCompare compare = new ListCompare();
+        int rst = compare.compare(
+                Arrays.asList(10, 1),
+                Arrays.asList(1, 10)
+        );
+        assertThat(rst, is(0));
+    }
 
 }
