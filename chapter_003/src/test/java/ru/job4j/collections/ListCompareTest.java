@@ -1,6 +1,6 @@
 package ru.job4j.collections;
 
-
+//тесты для компаратор для двух списков
 import org.junit.Test;
 import java.util.Arrays;
 import static org.hamcrest.core.Is.is;
