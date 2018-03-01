@@ -1,63 +1,59 @@
 package ru.job4j.collectionpro;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class IteratorforArray  implements Iterator<Integer>  {
 
-   private int[][] array = new int[][] {{1, 2, 3}, {4, 5, 6}};
-   private int x;
-   private int y;
+    private int[][] array;
+    private int x = 0;
+    private  int y = 0;
+    private int i = x;
+    private int j = y;
 
+    public IteratorforArray(int[][] array) {
+        this.array = array;
+    }
 
     @Override
-    public boolean hasNext() {
-                return arrayLength(array);
+    public boolean hasNext()  {
+        int b = 0;
+        boolean tmp = false;
+        for (; x < array.length;) {
+            for (; y < array[i].length;) {
+                b = array[x][y];
+                tmp = true;
+                break;
             }
+            break;
+        }
 
+        return tmp;
+    }
 
     @Override
     public Integer next() {
-        return itemArray(array);
-    }
-
-
-    public boolean arrayLength(int[][] array) {
-        boolean a = false;
-        int i = x;
-        int j = y;
-        for ( ; i < array.length; i++) {
-            for (  ; j < array[i].length; j++) {
+        int d = 0;
+        for (int i = x; i < array.length;) {
+            for (int j = y; j < array[i].length;) {
+                d = array[i][j];
+                if (y + 1 == array[i].length) {
+                    x += 1;
+                    y = -1;
+                }
+                y += 1;
                 break;
             }
-          break;
-        }
-        while (i < array.length && j < array[i].length) {
-            a = true;
             break;
         }
-        return a;
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
+        return d;
     }
 
 
-    public int itemArray(int[][] array) {
-        int a = 0;
 
-            for (int i = x; i < array.length;) {
-                for (int j = y; j < array[i].length;) {
-                    a = array[i][j];
-
-                    y = j + 1;
-                    break;
-                }
-                if (y == array[i].length) {
-                    x = i + 1;
-                    y = 0;
-                break;
-                }
-              break;
-            }
-        return  a;
-    }
 
 }
 
