@@ -1,5 +1,6 @@
 package ru.job4j.collectionpro;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.NoSuchElementException;
@@ -9,9 +10,11 @@ import static org.hamcrest.Matchers.is;
 
 public class EvenIteratorTest {
 
-    @Test
-    public void whenIteratorReturnEvenNumbers() {
-        EvenIterator it = new EvenIterator();
+
+
+  @Test
+    public void shouldReturnEvenNumbersSequentially() {
+        EvenIterator it = new EvenIterator(new int[] {1, 2, 3, 4, 5, 6, 7});
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(2));
         assertThat(it.hasNext(), is(true));
@@ -22,4 +25,27 @@ public class EvenIteratorTest {
         it.next();
     }
 
-}
+
+
+   @Test
+    public void  shouldReturnFalseIfNoAnyEvenNumbers() {
+       EvenIterator it = new EvenIterator(new int[]{1});
+        assertThat(it.hasNext(), is(false));
+    }
+
+
+
+
+   @Test
+    public void allNumbersAreEven() {
+       EvenIterator it = new EvenIterator(new int[]{2, 4, 6, 8});
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(2));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(4));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(6));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(8));
+    }
+ }
