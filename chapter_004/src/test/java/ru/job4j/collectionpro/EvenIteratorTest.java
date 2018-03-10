@@ -3,6 +3,7 @@ package ru.job4j.collectionpro;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,10 +12,9 @@ import static org.hamcrest.Matchers.is;
 public class EvenIteratorTest {
 
 
-
-  @Test
+    @Test
     public void shouldReturnEvenNumbersSequentially() {
-        EvenIterator it = new EvenIterator(new int[] {1, 2, 3, 4, 5, 6, 7});
+        EvenIterator it = new EvenIterator(new int[]{1, 2, 3, 4, 5, 6, 7});
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(2));
         assertThat(it.hasNext(), is(true));
@@ -22,23 +22,28 @@ public class EvenIteratorTest {
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(6));
         assertThat(it.hasNext(), is(false));
-        it.next();
+
     }
 
+    @Test
+    public void sequentialHasNextInvocationDoesntAffectRetrievalOrder() {
+        EvenIterator it = new EvenIterator(new int[]{1, 2, 3, 4, 5, 6, 7});
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(4));
+        assertThat(it.next(), is(6));
+    }
 
-
-   @Test
+    @Test
     public void  shouldReturnFalseIfNoAnyEvenNumbers() {
-       EvenIterator it = new EvenIterator(new int[]{1});
+        EvenIterator it = new EvenIterator(new int[]{1});
         assertThat(it.hasNext(), is(false));
     }
 
-
-
-
-   @Test
+    @Test
     public void allNumbersAreEven() {
-       EvenIterator it = new EvenIterator(new int[]{2, 4, 6, 8});
+        EvenIterator it = new EvenIterator(new int[]{2, 4, 6, 8});
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(2));
         assertThat(it.hasNext(), is(true));
@@ -48,4 +53,6 @@ public class EvenIteratorTest {
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(8));
     }
+
+
  }
