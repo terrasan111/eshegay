@@ -62,6 +62,9 @@ public class IteratorIterator implements Iterator<Integer> {
                     if (it3.hasNext()) {
                         temp2 = it3.next();
                     }
+                    if (!it3.hasNext()) {
+                        throw new NoSuchElementException();
+                    }
                 }
 
                 if (iter.hasNext()) {

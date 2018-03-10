@@ -26,7 +26,7 @@ public class IteratorIteratorTest {
     }
 
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     public void hasNextNextSequentialInvocation() {
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(1));
@@ -49,7 +49,7 @@ public class IteratorIteratorTest {
         assertThat(it.hasNext(), is(false));
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     public void testsThatNextMethodDoesntDependsOnPriorHasNextInvocation() {
         assertThat(it.next(), is(1));
         assertThat(it.next(), is(2));
@@ -62,7 +62,7 @@ public class IteratorIteratorTest {
         assertThat(it.next(), is(9));
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     public void sequentialHasNextInvocationDoesntAffectRetrievalOrder() {
         assertThat(it.hasNext(), is(true));
         assertThat(it.hasNext(), is(true));
