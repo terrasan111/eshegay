@@ -1,16 +1,17 @@
 package ru.job4j.collectionpro;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 
-public class IteratorforArray  implements Iterator<Integer>  {
+public class IteratorforArrayInt  implements Iterator<Integer>  {
 
     private int[][] array;
     private int x = 0;
     private int y = 0;
+    private int result = 0;
 
-
-    public IteratorforArray(int[][] array) {
+    public IteratorforArrayInt(int[][] array) {
         this.array = array;
     }
 
@@ -21,10 +22,11 @@ public class IteratorforArray  implements Iterator<Integer>  {
 
     @Override
     public Integer next() {
-        int result = 0;
+        boolean tmp = false;
         for (int i = x; i < array.length;) {
             for (int j = y; j < array[i].length;) {
                 result = array[i][j];
+                tmp = true;
                 j++;
                 y = j;
                 if (j == array[i].length) {
@@ -37,7 +39,9 @@ public class IteratorforArray  implements Iterator<Integer>  {
 
             break;
         }
-        return result;
+        if (!tmp ) throw new NoSuchElementException();
+
+        return  result ;
     }
 
     public boolean helpForHasNext(int[][] array) {

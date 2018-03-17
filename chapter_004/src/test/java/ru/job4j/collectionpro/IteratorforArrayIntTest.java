@@ -2,15 +2,18 @@ package ru.job4j.collectionpro;
 
 
 import org.junit.Test;
+
+import java.util.NoSuchElementException;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 
-public class IteratorforArrayTest {
+public class IteratorforArrayIntTest {
 
       @Test
       public void hasNextNextSequentialInvocation() {
-            IteratorforArray it = new IteratorforArray(new int[][]{{1, 2, 3}, {4, 5, 6}});
+            IteratorforArrayInt it = new IteratorforArrayInt(new int[][]{{1, 2, 3}, {4, 5, 6}});
             assertThat(it.hasNext(), is(true));
             assertThat(it.next(), is(1));
             assertThat(it.hasNext(), is(true));
@@ -28,7 +31,7 @@ public class IteratorforArrayTest {
 
       @Test
       public void testsThatNextMethodDoesntDependsOnPriorHasNextInvocation() {
-            IteratorforArray it = new IteratorforArray(new int[][]{{1, 2, 3}, {4, 5, 6}});
+            IteratorforArrayInt it = new IteratorforArrayInt(new int[][]{{1, 2, 3}, {4, 5, 6}});
             assertThat(it.next(), is(1));
             assertThat(it.next(), is(2));
             assertThat(it.next(), is(3));
@@ -39,7 +42,7 @@ public class IteratorforArrayTest {
 
       @Test
       public void sequentialHasNextInvocationDoesntAffectRetrievalOrder() {
-            IteratorforArray it = new IteratorforArray(new int[][]{{1, 2, 3}, {4, 5, 6}});
+            IteratorforArrayInt it = new IteratorforArrayInt(new int[][]{{1, 2, 3}, {4, 5, 6}});
             assertThat(it.hasNext(), is(true));
             assertThat(it.hasNext(), is(true));
             assertThat(it.next(), is(1));
@@ -50,16 +53,16 @@ public class IteratorforArrayTest {
             assertThat(it.next(), is(6));
       }
 
-      @Test
+      @Test(expected =  NoSuchElementException.class )
       public void shoulThrowNoSuchElementException() {
-            IteratorforArray it = new IteratorforArray(new int[][]{});
+            IteratorforArrayInt it = new IteratorforArrayInt(new int[][]{});
             it.next();
       }
 
 
       @Test
       public void hasNextNextSequentialInvocation2() {
-            IteratorforArray it = new IteratorforArray(new int[][]{{1}, {3, 4}, {7}});
+            IteratorforArrayInt it = new IteratorforArrayInt(new int[][]{{1}, {3, 4}, {7}});
             assertThat(it.hasNext(), is(true));
             assertThat(it.next(), is(1));
             assertThat(it.hasNext(), is(true));
@@ -73,7 +76,7 @@ public class IteratorforArrayTest {
 
       @Test
       public void testsThatNextMethodDoesntDependsOnPriorHasNextInvocation2() {
-            IteratorforArray it = new IteratorforArray(new int[][]{{1}, {3, 4}, {7}});
+            IteratorforArrayInt it = new IteratorforArrayInt(new int[][]{{1}, {3, 4}, {7}});
             assertThat(it.next(), is(1));
             assertThat(it.next(), is(3));
             assertThat(it.next(), is(4));
@@ -82,7 +85,7 @@ public class IteratorforArrayTest {
 
       @Test
       public void sequentialHasNextInvocationDoesntAffectRetrievalOrder2() {
-            IteratorforArray it = new IteratorforArray(new int[][]{{1}, {3, 4}, {7}});
+            IteratorforArrayInt it = new IteratorforArrayInt(new int[][]{{1}, {3, 4}, {7}});
             assertThat(it.hasNext(), is(true));
             assertThat(it.hasNext(), is(true));
             assertThat(it.next(), is(1));
@@ -93,7 +96,7 @@ public class IteratorforArrayTest {
 
       @Test
       public void hasNextNextSequentialInvocation3() {
-            IteratorforArray it = new IteratorforArray(new int[][]{{1}, {3, 4}, {7}});
+            IteratorforArrayInt it = new IteratorforArrayInt(new int[][]{{1}, {3, 4}, {7}});
             assertThat(it.hasNext(), is(true));
             assertThat(it.next(), is(1));
             assertThat(it.hasNext(), is(true));
