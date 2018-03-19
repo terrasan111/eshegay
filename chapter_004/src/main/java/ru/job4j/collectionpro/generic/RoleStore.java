@@ -3,12 +3,14 @@ package ru.job4j.collectionpro.generic;
 /**
  * Created by Evgeniy on 12.03.2018.
  */
-public class RoleStore extends AbstractStore implements Store {
+public class RoleStore  extends  AbstractStore  {
 
+    SimpleArray<Role> roles = new SimpleArray<>(100);
 
-  SimpleArray<Role> role = new SimpleArray<Role>(100);
+    public RoleStore(SimpleArray<Role> roles) {
+        this.roles = roles;
 
-    public RoleStore(SimpleArray<Role> role) {
-        this.role = role;
     }
+
+
 }
