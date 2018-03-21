@@ -3,63 +3,57 @@ package ru.job4j.collectionpro.generic;
 /**
  * Created by Evgeniy on 12.03.2018.
  */
-public abstract class AbstractStore implements Store {
+public abstract class AbstractStore<T extends Base> implements Store<T> {
 
-
-   private int index = 0;
    private int count = 0;
-   private int index2 =0;
    private int count2 = 0;
-   private int index3 = 0;
-   private int count3 = 0;
-
-
+   private SimpleArray<T> simpleArray = new SimpleArray<T>(100);
 
 
     @Override
-    public void add(Base model) {
-
+    public void add(T model) {
+     simpleArray.add(model);
     }
 
     @Override
-    public boolean replace(String id, Base model) {
+    public boolean replace(String id, T model) {
         boolean result = false;
-        while (count < 100 && !result) {
-
-                result = true;
-
-            index++;
-            count++;
-        }
+       for (T temp : simpleArray) {
+           if (temp.getId() == id) {
+               simpleArray.set(count, model);
+               result = true;
+               break;
+           }
+           count++;
+       }
         return result;
     }
 
    @Override
     public boolean delete(String id) {
         boolean result = false;
-        while (count2 < 100 && !result) {
-
-            index2++;
-            count2++;
-        }
+       for (T temp : simpleArray) {
+           if (temp.getId() == id) {
+               simpleArray.delete(count2);
+               result = true;
+               break;
+           }
+           count2++;
+       }
         return result;
     }
 
     @Override
-    public Base findById(String id) {
-        Base result = null;
+    public T findById(String id) {
+        T result = null;
         boolean rsl = false;
-        while (count3 < 100 && !rsl) {
-            for (Base temp : bases) {
+            for (T temp : simpleArray) {
                 if (temp.getId() == id) {
                     result = temp;
                     rsl = true;
                     break;
                 }
             }
-            index3++;
-            count3++;
-        }
         return result;
     }
 }
