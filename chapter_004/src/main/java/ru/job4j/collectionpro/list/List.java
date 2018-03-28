@@ -38,7 +38,7 @@ public class List<E> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-        int expectedModCount = 0;
+       final int expectedModCount = modCount;
         if (expectedModCount != modCount) {
             throw new ConcurrentModificationException();
         }
