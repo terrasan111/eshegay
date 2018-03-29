@@ -89,8 +89,7 @@ public class SimpleQueue<E> {
         value.prev = null;
         value.item = null;
         value.next = null;
-        Node<E> temp = new Node<>(null, null, first.next.next);
-
+        Node<E> temp = new Node<>(null, null, first.getNext().getNext());
         first = temp;
         size--;
         return element;
@@ -102,7 +101,6 @@ public class SimpleQueue<E> {
         prev.setItem((E) value);
         first = new Node(null, null, prev);
         prev.setPrev(first);
-        size++;
         size++;
     }
 

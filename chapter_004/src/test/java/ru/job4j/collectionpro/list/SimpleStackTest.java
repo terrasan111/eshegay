@@ -15,7 +15,7 @@ public class SimpleStackTest {
         SimpleStack<String> simpleStack = new SimpleStack();
         String a = "Hi";
         simpleStack.push(a);
-        assertThat(simpleStack.get(0), is("Hi"));
+        assertThat((simpleStack.poll()), is("Hi"));
     }
 
     @Test

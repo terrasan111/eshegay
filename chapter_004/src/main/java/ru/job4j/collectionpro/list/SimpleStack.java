@@ -1,8 +1,6 @@
 package ru.job4j.collectionpro.list;
 
 
-import java.util.LinkedList;
-
 /**
  * Created by Evgeniy on 24.03.2018.
  */
@@ -58,10 +56,10 @@ public class SimpleStack<E> {
 
 
     public boolean add(Object value) {
-        Node<E> prev = first;
+        Node<E> prev = last;
         prev.setItem((E) value);
-        first = new Node(null, null, prev);
-        prev.setPrev(first);
+        last = new Node(prev, null, null);
+        prev.setNext(last);
         size++;
         return true;
     }
@@ -82,31 +80,29 @@ public class SimpleStack<E> {
 
 
     public E  poll() {
-     final Node<E> result = first.getNext();
+     final Node<E> result = last.getPrev();
       return (result.getItem() == null) ? null : helpForPoll(result);
     }
 
-    //  метод работает как описан в документации к интерфейсу Quequu  т.е вынимает элемент из головы т.к у Stack нет метода poll
+    //  метод извлекает элемент из головы стека(т.е начиная с правого крайнего элемента)
     private E helpForPoll(Node<E> value) {
         final E element = value.item;
         value.prev = null;
         value.item = null;
         value.next = null;
-        Node<E> temp = new Node<>(null, null, first.next.next);
-
-        first = temp;
+        last = new Node(last.getPrev().getPrev(), null, null);
         size--;
         return element;
     }
 
     public void push(E value) {
 
-        Node<E> prev = first;
+        Node<E> prev = last;
         prev.setItem((E) value);
-        first = new Node(null, null, prev);
-        prev.setPrev(first);
+        last = new Node(prev, null, null);
+        prev.setNext(last);
         size++;
-        size++;
+
     }
 
 
