@@ -1,70 +1,72 @@
 package ru.job4j.collectionpro.set;
 
 import ru.job4j.collectionpro.list.List;
+
+import java.util.Arrays;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 
 /**
  * Created by Evgeniy on 31.03.2018.
  */
-public class SimpleSet<E> extends List<E> implements Iterable<E> {
+public class SimpleSet<E>  extends List<E> {
 
-    private int count = 0;
-    private int size = 0;
-    private Object[] objects;
     private int index2 = 0;
+    private int size = 0;
 
     public SimpleSet(Object[] objects) {
         super(objects);
-       this.objects = objects;
     }
 
-    public boolean equals(Object obj, Object value) {
-        return obj.equals(value);
+    public boolean contains(E value) {
+       boolean result = false;
+        for (int i = 0; i < objects.length; i++) {
+            E temp = (E) objects[i];
+           boolean temp2 = temp.equals(value);
+            if (temp2) {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
+
+
+
 
     @Override
     public void add(E value) {
         int index = 0;
-        while (index < objects.length) {
-            E object = (E) objects[index];
-            if (object == null && index != objects.length - 1) {
-                index++;
-                continue;
-            }
-            if (object == null) {
-                objects[index2++] = value;
-                size++;
-            }
-            if (object != null) {
-                boolean temp = equals(object, value);
+        E object = (E) objects[index];
+        if (object == null) {
+            objects[index2++] = value;
+            size++;
+            return;
+        }
+        if (object != null) {
+            int count = 0;
+            for (int j = 0; j < objects.length; j++) {
+                E val = (E) objects[j];
+                boolean temp = value.equals(val);
                 if (temp) {
                     return;
                 }
-                if (!temp) {
+                if (!temp && count == objects.length - 1) {
                     objects[index2++] = value;
                     size++;
+                    break;
                 }
+                count++;
             }
-            break;
+
         }
+        if (size == objects.length) {
+            Arrays.copyOf(objects, ((objects.length * 3) / 2) + 1);
+        }
+
     }
-
-    @Override
-    public Iterator<E> iterator() {
-        return new Iterator<E>() {
-            @Override
-            public boolean hasNext() {
-                return count < size;
-            }
-
-            @Override
-            public E next() {
-                return (E) objects[count++];
-            }
-        };
-    }
-
-
-
 }
+
+

@@ -46,4 +46,21 @@ public class SimpleSetTest {
         assertThat(set.iterator().next(), is("Jerry"));
         assertThat(set.iterator().hasNext(), is(false));
     }
+
+    @Test
+    public void ifSimpleSetContainsItem() {
+        Object[]objects = new Object[5];
+        SimpleSet<String> set = new SimpleSet<>(objects);
+        String one = "Tom";
+        String  two = "Deil";
+        String three = "Jack";
+        set.add(one);
+        set.add(two);
+        set.add(three);
+
+       assertThat(set.contains(one), is(true));
+        assertThat(set.contains(two), is(true));
+        assertThat(set.contains(three), is(true));
+
+    }
 }
