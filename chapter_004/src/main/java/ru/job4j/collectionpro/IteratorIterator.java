@@ -21,21 +21,20 @@ public class IteratorIterator implements Iterator<Integer> {
 
 
         return new Iterator<Integer>() {
-            Iterator<Iterator<Integer>> main = it;
-            Iterator<Integer> iter = main.next();
-            Iterator<Integer> it2  = main.next();
+            Iterator<Integer> current = it.next();
+
 
             @Override
             public boolean hasNext() {
-               if (!iter.hasNext()) {
+               if (!current.hasNext()) {
                    return false;
                }
                 boolean temp = false;
-                if (iter.hasNext()) {
+                if (current.hasNext()) {
                     temp = true;
 
                 } else {
-                    iter = it2;
+                    current = it.next();
                     hasNext();
                 }
 
@@ -45,14 +44,14 @@ public class IteratorIterator implements Iterator<Integer> {
             @Override
             public Integer next()  {
 
-                if (iter.hasNext()) {
-                    temp2 = iter.next();
+                if (current.hasNext()) {
+                    temp2 = current.next();
                 } else {
-                    iter = it2;
+                    current = it.next();
                     next();
                 }
 
-                if (!iter.hasNext()) {
+                if (!current.hasNext()) {
                     throw new NoSuchElementException();
                 }
 
