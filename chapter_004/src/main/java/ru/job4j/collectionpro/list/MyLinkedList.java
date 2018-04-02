@@ -19,6 +19,8 @@ public class MyLinkedList<E> implements SimpleContainer {
         last = new Node(first, null, null);
     }
 
+
+
     private  class Node<E> {
         E item;
         Node<E> next;
@@ -30,53 +32,29 @@ public class MyLinkedList<E> implements SimpleContainer {
             this.prev = prev;
         }
 
-        public E getItem() {
-            return item;
-        }
-
-        public void setItem(E item) {
-            this.item = item;
-        }
-
-        public Node<E> getNext() {
-            return next;
-        }
-
-        public void setNext(Node<E> next) {
-            this.next = next;
-        }
-
-        public Node<E> getPrev() {
-            return prev;
-        }
-
-        public void setPrev(Node<E> prev) {
-            this.prev = prev;
-        }
     }
 
     @Override
     public boolean add(Object value) {
         Node<E> prev = first;
-        prev.setItem((E) value);
+        prev.item = (E) value;
         first = new Node(null, null, prev);
-        prev.setPrev(first);
+        prev.prev = first;
         size++;
         return true;
     }
 
     @Override
     public E get(int index) {
-       Node<E> temp = first.getNext();
-       for (int i = 0; i < index; i++) {
+        Node<E> temp = first.next;
+        for (int i = 0; i < index; i++) {
            temp = getNextElement(temp);
-       }
-        
-         return temp.getItem();
+        }
+         return temp.item;
     }
 
     private Node<E> getNextElement(Node<E> value) {
-        return value.getNext();
+        return value.next;
     }
 
     @Override
