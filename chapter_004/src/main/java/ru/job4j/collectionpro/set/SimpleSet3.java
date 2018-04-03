@@ -9,69 +9,61 @@ public class SimpleSet3<E> {
 
     private Object[] objects = new Object[16];
     private int size = 0;
-    private E value;
-    private int index = 0;
     private int count = 0;
+    private E value;
 
     public SimpleSet3(Object[] objects) {
         this.objects = objects;
     }
 
-    public boolean add(E e) {
+    public boolean add(E value) {
+        boolean temp = true;
         boolean result = false;
-          if (size == 0) {
-              objects[0] = e;
-              size++;
-              result = true;
-              return result;
-          }
-          for (int i = 0; i < objects.length; i++) {
-              E temp = (E) objects[i];
-              if (temp.hashCode() != e.hashCode()) {
-                  index = hash(e);
-                  objects[index] = e;
-                  size++;
-                  result = true;
-                  break;
-              }
-          }
+        if (!contains(value)) {
+            objects[hash(value)] = value;
+            result = true;
+            size++;
+            return result;
+        }
           if (size == objects.length - 1) {
               Arrays.copyOf(objects, (objects.length * 3) / 2 + 1);
           }
-
        return result;
     }
 
 
-     public  boolean contains(E e) {
+     public  boolean contains(E value) {
           boolean res = false;
-          for (int i = 0; i < objects.length; i++) {
-              E temp =  (E) objects[i];
-              if (temp.hashCode() == e.hashCode()) {
-                  res = true;
-                  break;
+              for (int j = 0; j < objects.length; j++) {
+                  E temp2 = (E) objects[j];
+                  if (temp2 == null) {
+                      continue;
+                  }
+                  if (temp2 != null) {
+                      boolean rsl = temp2.equals(value);
+                      if (rsl) {
+                          res = true;
+                          count = j;
+                          break;
+                      }
+                  }
               }
-          }
           return res;
      }
 
-      public  boolean remove(E e) {
+      public  boolean remove(E value) {
          boolean rsl = false;
-         for (int i = 0; i < objects.length; i++) {
-             E temp = (E) objects[count++];
-             if (temp.hashCode() == e.hashCode()) {
-                 i = --count;
-                 objects[i] = null;
-                 rsl = true;
-                 count++;
-                 break;
-             }
+         boolean tmp = false;
+         tmp = contains(value);
+         if (tmp) {
+             objects[count] = null;
+             size--;
+             rsl = true;
          }
          return rsl;
       }
 
-
-
+    @Override
     public int hashCode() {
         int hash = 31;
         hash = hash * 17 + value.hashCode();

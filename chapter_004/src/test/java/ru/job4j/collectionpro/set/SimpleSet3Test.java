@@ -18,7 +18,7 @@ public class SimpleSet3Test {
         Object[]objects = new Object[16];
         SimpleSet3<String> set3 = new SimpleSet3<>(objects);
         String one = "Hello";
-        String two = "World";
+        String two = "Friend";
         set3.add(one);
         set3.add(two);
         assertThat(set3.contains(one), is(true));
@@ -29,8 +29,8 @@ public class SimpleSet3Test {
     public void testForRemove() {
         Object[]objects = new Object[16];
         SimpleSet3<String> set3 = new SimpleSet3<>(objects);
-        String one = "Hello";
-        String two = "World";
+        String one = "Hi";
+        String two = "Start";
         set3.add(one);
         set3.add(two);
         assertThat(set3.remove(one), is(true));
