@@ -20,8 +20,8 @@ public class SimpleSet2Test {
         set2.add(one);
         set2.add(two);
         set2.add(three);
-        assertThat(set2.get(0), is("Jerry"));
-        assertThat(set2.get(1), is("Tom"));
+        assertThat(set2.iterator().next(), is("Jerry"));
+        assertThat(set2.iterator().next(), is("Tom"));
 
     }
 
