@@ -9,6 +9,7 @@ public class Tree<E extends Comparable<E>>  implements SimpleTrees<E> {
     private  Queue<Node<E>> iterator = new LinkedList<>();
     private Node<E> result;
     private  int count = 0;
+    private int size = 0;
 
     public Tree() {
         this.root = null;
@@ -23,6 +24,7 @@ public class Tree<E extends Comparable<E>>  implements SimpleTrees<E> {
         if (root == null) {
             root = parent;
             root.add(child);
+            size++;
             result = true;
         } else if (root == parent) {
             for (Node<E> temp : root.leaves()) {
@@ -38,6 +40,7 @@ public class Tree<E extends Comparable<E>>  implements SimpleTrees<E> {
             }
             if (count == 0) {
                 root.add(child);
+                size++;
                 result = true;
             }
         } else {
@@ -49,16 +52,31 @@ public class Tree<E extends Comparable<E>>  implements SimpleTrees<E> {
     private boolean helpForAdd(Node parent, Node child) {
         boolean result = false;
         boolean a = false;
+        int count2 = 0;
         Queue<Node<E>> queue = new LinkedList<>();
         queue.offer(this.root);
+
         while (!queue.isEmpty()) {
             Node<E> el = queue.poll();
              a = el.eqValue((E) parent.getValue());
             if (a) {
               if (el.size() == 0) {
                   el.add(child);
+                  size++;
                   result = true;
                   break;
+              } else {
+                  for (Node<E> tmp : el.leaves()) {
+                      boolean b = tmp.eqValue((E) child);
+                      if (b) {
+                          count2++;
+                      }
+                  }
+                  if (count2 == 0) {
+                      el.add(child);
+                      size++;
+                      break;
+                  }
               }
             }
             for (Node<E> temp : el.leaves()) {
@@ -66,6 +84,30 @@ public class Tree<E extends Comparable<E>>  implements SimpleTrees<E> {
             }
         }
         return result;
+    }
+
+    public boolean isBinary() {
+        boolean res = false;
+        int count = 0;
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.offer(this.root);
+
+        while (!queue.isEmpty()) {
+            Node<E> temp = queue.poll();
+            List<Node<E>> list;
+            list = temp.leaves();
+
+            if (list.size() <= 2) {
+                for (Node<E> temp2 : list) {
+                    queue.offer(temp2);
+                }
+                count++;
+            }
+        }
+        if (size == count) {
+            res = true;
+        }
+        return res;
     }
 
 
