@@ -39,9 +39,11 @@ public class IteratorforArrayInt  implements Iterator<Integer>  {
 
             break;
         }
-        if (!tmp ) throw new NoSuchElementException();
+        if (!tmp) {
+            throw new NoSuchElementException();
+        }
 
-        return  result ;
+        return  result;
     }
 
     public boolean helpForHasNext(int[][] array) {
