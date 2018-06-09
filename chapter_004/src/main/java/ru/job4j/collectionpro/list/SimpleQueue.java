@@ -1,107 +1,92 @@
+
 package ru.job4j.collectionpro.list;
+import java.util.Arrays;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-/**
- * Created by Evgeniy on 25.03.2018.
- */
-public class SimpleQueue<E> {
-
-    private int size = 0;
-    private Node<E> first;
-    private Node<E> last;
+public class SimpleQueue<E>  implements Iterable<E> {
 
 
-    public SimpleQueue() {
-        first = new Node(null, null, last);
-        last = new Node(first, null, null);
+    protected Object[] objects;
+    private int index = 0;
+    private int index2 = 0;
+    private int modCount = 0;
+    private int i = 0;
+
+    public SimpleQueue(Object[] objects) {
+        this.objects = objects;
     }
 
+    // добавляет элемент в очередь
 
-
-    private  class Node<E> {
-        E item;
-        Node<E> next;
-        Node<E> prev;
-
-        Node(Node<E> prev, E element, Node<E> next) {
-            this.item = element;
-            this.next = next;
-            this.prev = prev;
-        }
-
-        public E getItem() {
-            return item;
-        }
-
-        public void setItem(E item) {
-            this.item = item;
-        }
-
-        public Node<E> getNext() {
-            return next;
-        }
-
-        public void setNext(Node<E> next) {
-            this.next = next;
-        }
-
-        public Node<E> getPrev() {
-            return prev;
-        }
-
-        public void setPrev(Node<E> prev) {
-            this.prev = prev;
+       public void push(E value) {
+        objects[index] = value;
+        index++;
+        modCount++;
+        if (index == objects.length) {
+            Arrays.copyOf(objects, ((objects.length * 3) / 2) + 1);
         }
     }
-
-
-    public boolean add(Object value) {
-        Node<E> prev = first;
-        prev.setItem((E) value);
-        first = new Node(null, null, prev);
-        prev.setPrev(first);
-        size++;
-        return true;
-    }
-
 
     public E get(int index) {
-        Node<E> temp = first.getNext();
-        for (int i = 0; i < index; i++) {
-            temp = getNextElement(temp);
+        E result = null;
+        if (index >= 0 && index < objects.length) {
+            result = (E) objects[index];
         }
-
-        return temp.getItem();
+        return result;
     }
 
-    private Node<E> getNextElement(Node<E> value) {
-        return value.getNext();
+    public E remove() {
+        E res = null;
+        res = (E) objects[index2];
+        objects[index2++] = null;
+        if (res == null) {
+            throw new NoSuchElementException();
+        }
+        return res;
     }
 
 
-    public E  poll() {
-        final Node<E> result = first.getNext();
-        return (result.getItem() == null) ? null : helpForPoll(result);
+    public E poll() {
+       E result;
+       if (objects[index2] != null) {
+           result =  (E) objects[index2];
+           objects[index2++] = null;
+
+       } else {
+           result = null;
+       }
+          return result;
     }
 
 
-    private E helpForPoll(Node<E> value) {
-        final E element = value.item;
-        value.prev = null;
-        value.item = null;
-        value.next = null;
-        Node<E> temp = new Node<>(null, null, first.getNext().getNext());
-        first = temp;
-        size--;
-        return element;
-    }
+    @Override
+    public Iterator<E> iterator() {
+        final int expectedModCount = modCount;
+        if (expectedModCount != modCount) {
+            throw new ConcurrentModificationException();
+        }
+        return new Iterator<E>() {
+            @Override
+            public boolean hasNext() {
+                boolean temp = false;
+                if (objects[i] != null) {
+                    temp = true;
+                }
+                return temp;
+            }
 
-    public void push(E value) {
-
-        Node<E> prev = first;
-        prev.setItem((E) value);
-        first = new Node(null, null, prev);
-        prev.setPrev(first);
-        size++;
+            @Override
+            public E next() {
+                if (objects[i] == null) {
+                    throw new NoSuchElementException();
+                }
+                return (E) objects[i++];
+            }
+        };
     }
 
 }
+
+

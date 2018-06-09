@@ -1,8 +1,8 @@
+
 package ru.job4j.collectionpro.list;
 
-/**
- * Created by Evgeniy on 26.03.2018.
- */
+
+
 public class Node<T>  {
 
     private T value;
@@ -45,3 +45,4 @@ public class Node<T>  {
     }
 
 }
+

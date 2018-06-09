@@ -1,109 +1,100 @@
 package ru.job4j.collectionpro.list;
 
 
+import java.util.Arrays;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * Created by Evgeniy on 24.03.2018.
  */
-public class SimpleStack<E> {
+public class SimpleStack<E> implements Iterable<E> {
 
-    private int size = 0;
-    private Node<E> first;
-    private Node<E> last;
+    protected Object[] objects;
+    private int index = 0;
+    private int modCount = 0;
+    private int i = 0;
 
-
-    public SimpleStack() {
-        first = new Node(null, null, last);
-        last = new Node(first, null, null);
+    public SimpleStack(Object[] objects) {
+        this.objects = objects;
     }
 
-
-
-    private  class Node<E> {
-        E item;
-        Node<E> next;
-        Node<E> prev;
-
-        Node(Node<E> prev, E element, Node<E> next) {
-            this.item = element;
-            this.next = next;
-            this.prev = prev;
-        }
-
-        public E getItem() {
-            return item;
-        }
-
-        public void setItem(E item) {
-            this.item = item;
-        }
-
-        public Node<E> getNext() {
-            return next;
-        }
-
-        public void setNext(Node<E> next) {
-            this.next = next;
-        }
-
-        public Node<E> getPrev() {
-            return prev;
-        }
-
-        public void setPrev(Node<E> prev) {
-            this.prev = prev;
-        }
-    }
-
-
-    public boolean add(Object value) {
-        Node<E> prev = last;
-        prev.setItem((E) value);
-        last = new Node(prev, null, null);
-        prev.setNext(last);
-        size++;
-        return true;
-    }
-
-
-    public E get(int index) {
-        Node<E> temp = first.getNext();
-        for (int i = 0; i < index; i++) {
-            temp = getNextElement(temp);
-        }
-
-        return temp.getItem();
-    }
-
-    private Node<E> getNextElement(Node<E> value) {
-        return value.getNext();
-    }
-
-
-    public E  poll() {
-     final Node<E> result = last.getPrev();
-      return (result.getItem() == null) ? null : helpForPoll(result);
-    }
-
-    //  метод извлекает элемент из головы стека(т.е начиная с правого крайнего элемента)
-    private E helpForPoll(Node<E> value) {
-        final E element = value.item;
-        value.prev = null;
-        value.item = null;
-        value.next = null;
-        last = new Node(last.getPrev().getPrev(), null, null);
-        size--;
-        return element;
-    }
-
+    // добавляет элемент в конец стека
     public void push(E value) {
+        objects[index] = value;
+        index++;
+        modCount++;
+        if (index == objects.length) {
+            Arrays.copyOf(objects, ((objects.length * 3) / 2) + 1);
+        }
+    }
+    // хотя у стека нет такого метода , но у вектора есть такой метод и стек его наследует . Незнаю нужен ли он здесь вообще.
+    public E get(int index) {
+        E result = null;
+        if (index >= 0 && index < objects.length) {
+            result = (E) objects[index];
+        }
+        return result;
+    }
+    // Данный метод есть у вектора И стек его наследует.
+    public E remove(int index) {
+        E res = null;
+        if (index >= 0 && index < objects.length) {
+             res = (E) objects[index];
+            objects[index] = null;
+        }
+        int a = index;
+        while (a < objects.length) {
+            objects[index] = objects[++index];
+            a++;
+            if (index == objects.length - 1) {
+                objects[index] = null;
+                break;
+            }
+        }
+        return res;
+    }
 
-        Node<E> prev = last;
-        prev.setItem((E) value);
-        last = new Node(prev, null, null);
-        prev.setNext(last);
-        size++;
-
+    // такого метода нет у стека , но он есть у очереди . Я реализовал логику метода из очереди
+    public E poll() {
+        E temp  = null;
+        for (int j = objects.length - 1; j >= 0; j--) {
+            if (objects[j] != null) {
+                temp =  (E) objects[j];
+                objects[j] = null;
+                break;
+            }
+        }
+        return temp;
     }
 
 
+    @Override
+    public Iterator<E> iterator() {
+        final int expectedModCount = modCount;
+        if (expectedModCount != modCount) {
+            throw new ConcurrentModificationException();
+        }
+        return new Iterator<E>() {
+            @Override
+            public boolean hasNext() {
+                boolean temp = false;
+                if (objects[i] != null) {
+                    temp = true;
+                }
+                return temp;
+            }
+
+            @Override
+            public E next() {
+                if (objects[i] == null) {
+                    throw new NoSuchElementException();
+                }
+                return (E) objects[i++];
+            }
+        };
+    }
 }
+
+

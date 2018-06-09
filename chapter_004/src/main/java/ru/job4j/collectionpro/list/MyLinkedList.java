@@ -9,10 +9,10 @@ import java.util.NoSuchElementException;
  */
 public class MyLinkedList<E> implements SimpleContainer {
 
-    private int size = 0;
-    private Node<E> first;
-    private Node<E> last;
-    private int count = 0;
+    protected int size = 0;
+    protected Node<E> first;
+    protected Node<E> last;
+    protected int count = 0;
 
     public MyLinkedList() {
         first = new Node(null, null, last);
@@ -21,12 +21,12 @@ public class MyLinkedList<E> implements SimpleContainer {
 
 
 
-    private  class Node<E> {
-        E item;
-        Node<E> next;
-        Node<E> prev;
+      protected class Node<E> {
+      public E item;
+      public  Node<E> next;
+      public Node<E> prev;
 
-        Node(Node<E> prev, E element, Node<E> next) {
+        public Node(Node<E> prev, E element, Node<E> next) {
             this.item = element;
             this.next = next;
             this.prev = prev;

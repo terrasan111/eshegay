@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 public class List<E> implements Iterable<E> {
 
 
-    private Object[] objects;
+    protected Object[] objects;
     private int index = 0;
     private int modCount = 0;
     private int i = 0;

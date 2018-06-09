@@ -1,7 +1,7 @@
 package ru.job4j.collectionpro.set;
 
 import ru.job4j.collectionpro.list.MyLinkedList;
-import ru.job4j.collectionpro.list.Node;
+
 
 import java.util.Iterator;
 
